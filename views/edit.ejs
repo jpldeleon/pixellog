@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit — <%= post.title %> — PixelLog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <div class="edit-page">
+    <a href="/" class="back-link">&lt; BACK TO FEED</a>
+
+    <section class="edit-card pixel-border">
+      <h1>✎ Edit Memory</h1>
+
+      <form action="/edit/<%= post.id %>" method="POST">
+        <div class="form-row">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" value="<%= post.title %>" required />
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <% categories.forEach(function(cat) { %>
+                <option value="<%= cat %>" <%= post.category === cat ? 'selected' : '' %>><%= cat %></option>
+              <% }); %>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="imageUrl">Image URL</label>
+            <input type="url" id="imageUrl" name="imageUrl" value="<%= post.imageUrl %>" placeholder="https://..." />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="content">Story Content</label>
+          <textarea id="content" name="content" required><%= post.content %></textarea>
+        </div>
+
+        <div class="edit-actions">
+          <button type="submit" class="btn btn-yellow">💾 Save Changes</button>
+          <a href="/" class="btn btn-blue">✕ Cancel</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="edit-card pixel-border" style="margin-top: 24px;">
+      <h1 style="color: var(--red);">⚠ Danger Zone</h1>
+      <p style="color: var(--text-dim); font-size: 18px; margin-top: 0;">
+        This will permanently remove this memory from the feed.
+      </p>
+      <form action="/delete/<%= post.id %>" method="POST" onsubmit="return confirm('Delete this memory forever?');">
+        <button type="submit" class="btn btn-red">🗑 Delete This Post</button>
+      </form>
+    </section>
+  </div>
+
+</body>
+</html>

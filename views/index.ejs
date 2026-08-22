@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelLog - Retro Tech Feed</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>&gt; PixelLog_</h1>
+    <p>a retro feed for gadgets, anime, games &amp; tech stories worth remembering</p>
+  </header>
+
+  <main class="feed-container">
+
+    <!-- ===================== CREATE POST CARD ===================== -->
+    <section class="create-card pixel-border">
+      <h2>+ New Memory</h2>
+      <form action="/create" method="POST">
+        <div class="form-row">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="e.g. My First Walkman" required />
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <% categories.forEach(function(cat) { %>
+                <option value="<%= cat %>"><%= cat %></option>
+              <% }); %>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="imageUrl">Image URL</label>
+            <input type="url" id="imageUrl" name="imageUrl" placeholder="https://..." />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="content">Story Content</label>
+          <textarea id="content" name="content" placeholder="Tell the story..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-yellow btn-block">Post Memory</button>
+      </form>
+    </section>
+
+    <!-- ===================== FEED ===================== -->
+    <% if (posts.length === 0) { %>
+      <div class="empty-state">
+        NO POSTS YET<br />
+        BE THE FIRST TO SHARE A MEMORY
+      </div>
+    <% } else { %>
+      <% posts.forEach(function(post) { %>
+        <article
+          class="post-card pixel-border-sm"
+          data-id="<%= post.id %>"
+          data-title="<%= post.title %>"
+          data-category="<%= post.category %>"
+          data-image="<%= post.imageUrl %>"
+          data-content="<%= post.content %>"
+          data-created="<%= post.createdAt %>"
+        >
+          <div class="post-card-img-wrap">
+            <img
+              src="<%= post.imageUrl %>"
+              alt="<%= post.title %>"
+              loading="lazy"
+              onerror="this.onerror=null; this.replaceWith(pixelFallback('<%= post.category %>'));"
+            />
+          </div>
+          <div class="post-card-body">
+            <div class="post-card-top">
+              <span class="badge cat-<%= post.category %>"><%= post.category %></span>
+              <span class="post-card-date"><%= new Date(post.createdAt).toLocaleDateString() %></span>
+            </div>
+            <h3 class="post-card-title"><%= post.title %></h3>
+            <p class="post-card-excerpt"><%= post.content %></p>
+          </div>
+        </article>
+      <% }); %>
+    <% } %>
+
+  </main>
+
+  <!-- ===================== FLOATING ACTION BUTTONS ===================== -->
+  <div class="fab-stack">
+    <button class="fab fab-theme" id="themeToggle" title="Toggle light/dark mode">◐</button>
+    <button class="fab fab-top" id="scrollTop" title="Back to top">▲</button>
+  </div>
+
+  <!-- ===================== 8-BIT LIGHTBOX MODAL ===================== -->
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox pixel-border" id="lightboxBox">
+      <div class="lightbox-img-side">
+        <img id="lightboxImg" src="" alt="" onerror="this.onerror=null; this.replaceWith(pixelFallback(currentCategory));" />
+      </div>
+      <div class="lightbox-info-side">
+        <button class="lightbox-close" id="lightboxClose">✕ CLOSE</button>
+        <span class="badge" id="lightboxBadge"></span>
+        <h2 id="lightboxTitle"></h2>
+        <div class="lightbox-timestamp" id="lightboxTimestamp"></div>
+        <p class="lightbox-story" id="lightboxStory"></p>
+        <div class="lightbox-actions">
+          <a id="lightboxEditLink" href="#" class="btn btn-blue btn-sm">✎ EDIT</a>
+          <form id="lightboxDeleteForm" action="/delete/" method="POST" onsubmit="return confirm('Delete this memory forever?');">
+            <button type="submit" class="btn btn-red btn-sm">🗑 DELETE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------- Theme toggle --------------------
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('pixellog-theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+    }
+    themeToggle.addEventListener('click', function () {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem(
+        'pixellog-theme',
+        document.body.classList.contains('light-theme') ? 'light' : 'dark'
+      );
+    });
+
+    // -------------------- Scroll to top FAB --------------------
+    document.getElementById('scrollTop').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // -------------------- Broken image fallback --------------------
+    function pixelFallback(category) {
+      const wrap = document.createElement('div');
+      wrap.className = 'post-card-img-fallback';
+      wrap.innerHTML =
+        '<div>▨▨▨<br/>▨▨▨</div><div>IMAGE NOT FOUND</div>';
+      return wrap;
+    }
+
+    // -------------------- 8-bit Lightbox --------------------
+    const overlay = document.getElementById('lightboxOverlay');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbBadge = document.getElementById('lightboxBadge');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbTimestamp = document.getElementById('lightboxTimestamp');
+    const lbStory = document.getElementById('lightboxStory');
+    const lbEditLink = document.getElementById('lightboxEditLink');
+    const lbDeleteForm = document.getElementById('lightboxDeleteForm');
+    let currentCategory = '';
+
+    document.querySelectorAll('.post-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        const id = card.dataset.id;
+        const title = card.dataset.title;
+        const category = card.dataset.category;
+        const image = card.dataset.image;
+        const content = card.dataset.content;
+        const created = card.dataset.created;
+
+        currentCategory = category;
+        lbImg.src = image;
+        lbImg.alt = title;
+        lbBadge.textContent = category;
+        lbBadge.className = 'badge cat-' + category;
+        lbTitle.textContent = title;
+        lbTimestamp.textContent = new Date(created).toLocaleString();
+        lbStory.textContent = content;
+        lbEditLink.href = '/edit/' + id;
+        lbDeleteForm.action = '/delete/' + id;
+
+        overlay.classList.add('open');
+      });
+    });
+
+    function closeLightbox() {
+      overlay.classList.remove('open');
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
