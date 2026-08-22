@@ -42,9 +42,9 @@ Follow these steps to run the project locally on your machine:
    npm install
   
 3. **Run the application**
- ```bash
+   ```bash
    node index.js
-      ```
+   ```
 4. **Open the browser:**
    Navigate to http://localhost:3000 in your web browser.
 
