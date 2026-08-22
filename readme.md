@@ -50,3 +50,7 @@ Follow these steps to run the project locally on your machine:
    ```   
 4. **Open the browser:**
    Navigate to http://localhost:5000 in your web browser.
+
+## 📝 License
+
+This project is licensed under the MIT License.
