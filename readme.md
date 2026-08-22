@@ -2,10 +2,7 @@
 
 A retro-inspired web application for tracking, logging, and showcasing pixel art and media feeds.
 
-![License]
-![Node.js]
-![Deployment]
-
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](#) [![Node.js](https://img.shields.io/badge/node.js-v18%2B-green.svg)](#) [![Deployment](https://img.shields.io/badge/deployed%20on-Render-informational)](#)
 ---
 
 ## 🚀 Live Demo
