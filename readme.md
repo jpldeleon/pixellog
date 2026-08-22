@@ -46,7 +46,7 @@ Follow these steps to run the project locally on your machine:
    node server.js
    ```   
 4. **Open the browser:**
-   Navigate to http://localhost:5000 in your web browser.
+   Navigate to http://localhost:3000 in your web browser.
 
 ## 📝 License
 
