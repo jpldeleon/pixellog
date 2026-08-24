@@ -422,18 +422,42 @@ button,
 .dpad-btn {
   width: 58px;
   height: 58px;
+  border-radius: 50%;
   border: 3px solid var(--shadow-color);
   background-color: var(--bg-inset);
-  color: var(--text);
+  color: var(--bg-inset);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 3px;
   cursor: pointer;
-  box-shadow: 3px 3px 0 0 var(--shadow-color);
+  position: relative;
+  box-shadow: 0 4px 0 0 var(--shadow-color);
   transition: transform 0.08s ease, box-shadow 0.08s ease,
-    background-color 0.15s ease, color 0.15s ease;
+    background-color 0.15s ease, color 0.15s ease, filter 0.1s ease;
+}
+
+/* Retro-controller face buttons — each takes on a distinct color,
+   sourced from the theme variables so they follow the light/dark toggle. */
+.ctrl-btn-menu {
+  background-color: var(--red);
+  color: var(--bg-inset);
+}
+
+.ctrl-btn-new {
+  background-color: var(--yellow);
+  color: var(--bg-inset);
+}
+
+.ctrl-btn-mode {
+  background-color: var(--blue);
+  color: var(--bg-inset);
+}
+
+.ctrl-btn-top {
+  background-color: var(--green);
+  color: var(--bg-inset);
 }
 
 .dpad-icon {
@@ -443,28 +467,23 @@ button,
 
 .dpad-label {
   font-family: var(--font-pixel);
-  font-size: 7px;
+  font-size: 6px;
   letter-spacing: 0.5px;
-  color: var(--text-dim);
+  color: var(--bg-inset);
+  opacity: 0.85;
 }
 
 .dpad-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 0 var(--shadow-color);
-}
-
-.dpad-btn:hover .dpad-label {
-  color: var(--yellow);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 0 0 var(--shadow-color);
+  filter: brightness(1.12);
 }
 
 .dpad-btn:active,
 .dpad-btn.active {
   transform: translateY(2px);
   box-shadow: 0 1px 0 0 var(--shadow-color);
-}
-
-.dpad-btn.active .dpad-label {
-  color: var(--bg-inset);
+  filter: brightness(0.95);
 }
 
 /* -------------------- popup menu (opens above the pill) -------------------- */
@@ -494,6 +513,13 @@ button,
   flex-direction: column;
   gap: 8px;
   padding: 16px;
+}
+
+/* Author rules with equal specificity to [hidden] otherwise beat the
+   browser's default [hidden]{display:none}, which was letting the
+   Project Directory panel render before it was clicked open. */
+.dpad-popup-panel[hidden] {
+  display: none;
 }
 
 .dpad-popup-title {
@@ -535,10 +561,33 @@ button,
   text-align: center;
   color: var(--blue);
   flex-shrink: 0;
+  transition: filter 0.1s ease;
+}
+
+/* Each popup icon gets its own retro-controller color, sourced from the
+   theme variables so it re-colors automatically with the theme toggle. */
+.dpad-popup-icon.icon-green {
+  color: var(--green);
+}
+
+.dpad-popup-icon.icon-yellow {
+  color: var(--yellow);
+}
+
+.dpad-popup-icon.icon-blue {
+  color: var(--blue);
+}
+
+.dpad-popup-icon.icon-purple {
+  color: var(--purple);
+}
+
+.dpad-popup-icon.icon-red {
+  color: var(--red);
 }
 
 .dpad-popup-item:hover .dpad-popup-icon {
-  color: var(--yellow);
+  filter: brightness(1.35);
 }
 
 .dpad-popup-arrow {
@@ -801,37 +850,9 @@ button,
   }
 
   .dpad-btn {
-  border-radius: 50%;
   width: 54px;
   height: 54px;
-  border: 3px solid var(--shadow-color);
   box-shadow: 0 4px 0 0 var(--shadow-color);
-  position: relative;
-}
-
-.ctrl-btn-menu {
-  background-color: var(--red);
-  color: var(--bg-inset);
-}
-
-.ctrl-btn-new {
-  background-color: var(--yellow);
-  color: var(--bg-inset);
-}
-
-.ctrl-btn-mode {
-  background-color: var(--blue);
-  color: var(--bg-inset);
-}
-
-.ctrl-btn-top {
-  background-color: var(--green);
-  color: var(--bg-inset);
-}
-
-.dpad-btn .dpad-label {
-  font-size: 6px;
-  font-weight: bold;
 }
 
   .dpad-icon {
