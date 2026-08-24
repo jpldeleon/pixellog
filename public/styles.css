@@ -355,55 +355,6 @@ button,
 }
 
 /* ==========================================================================
-   FLOATING ACTION BUTTONS
-   ========================================================================== */
-.fab-stack {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  z-index: 50;
-}
-
-.fab {
-  width: 54px;
-  height: 54px;
-  border: 3px solid var(--shadow-color);
-  background-color: var(--bg-card);
-  color: var(--text);
-  font-family: var(--font-pixel);
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 4px 4px 0 0 var(--shadow-color);
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
-}
-
-.fab:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 0 var(--shadow-color);
-}
-
-.fab:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 0 var(--shadow-color);
-}
-
-.fab-theme {
-  background-color: var(--yellow);
-  color: var(--bg-inset);
-}
-
-.fab-top {
-  background-color: var(--green);
-  color: var(--bg-inset);
-}
-
-/* ==========================================================================
    RETRO CONTROLLER NAV PILL
    ========================================================================== */
 .dpad-nav {
@@ -416,16 +367,15 @@ button,
   align-items: stretch;
   gap: 10px;
   background-color: var(--bg-card);
-  padding: 10px;
+  padding: 12px 16px;
+  border-radius: 40px;
 }
 
 .dpad-btn {
-  width: 58px;
-  height: 58px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   border: 3px solid var(--shadow-color);
-  background-color: var(--bg-inset);
-  color: var(--bg-inset);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -434,12 +384,10 @@ button,
   cursor: pointer;
   position: relative;
   box-shadow: 0 4px 0 0 var(--shadow-color);
-  transition: transform 0.08s ease, box-shadow 0.08s ease,
-    background-color 0.15s ease, color 0.15s ease, filter 0.1s ease;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.1s ease;
 }
 
-/* Retro-controller face buttons — each takes on a distinct color,
-   sourced from the theme variables so they follow the light/dark toggle. */
+/* Retro-controller face buttons colors */
 .ctrl-btn-menu {
   background-color: var(--red);
   color: var(--bg-inset);
@@ -515,9 +463,6 @@ button,
   padding: 16px;
 }
 
-/* Author rules with equal specificity to [hidden] otherwise beat the
-   browser's default [hidden]{display:none}, which was letting the
-   Project Directory panel render before it was clicked open. */
 .dpad-popup-panel[hidden] {
   display: none;
 }
@@ -559,32 +504,15 @@ button,
   font-size: 16px;
   width: 18px;
   text-align: center;
-  color: var(--blue);
   flex-shrink: 0;
   transition: filter 0.1s ease;
 }
 
-/* Each popup icon gets its own retro-controller color, sourced from the
-   theme variables so it re-colors automatically with the theme toggle. */
-.dpad-popup-icon.icon-green {
-  color: var(--green);
-}
-
-.dpad-popup-icon.icon-yellow {
-  color: var(--yellow);
-}
-
-.dpad-popup-icon.icon-blue {
-  color: var(--blue);
-}
-
-.dpad-popup-icon.icon-purple {
-  color: var(--purple);
-}
-
-.dpad-popup-icon.icon-red {
-  color: var(--red);
-}
+.dpad-popup-icon.icon-green { color: var(--green); }
+.dpad-popup-icon.icon-yellow { color: var(--yellow); }
+.dpad-popup-icon.icon-blue { color: var(--blue); }
+.dpad-popup-icon.icon-purple { color: var(--purple); }
+.dpad-popup-icon.icon-red { color: var(--red); }
 
 .dpad-popup-item:hover .dpad-popup-icon {
   filter: brightness(1.35);
@@ -693,13 +621,10 @@ button,
   max-height: 88vh;
   display: flex;
   flex-direction: column;
-
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: var(--yellow) var(--bg-inset);
 }
 
-/* Chrome, Edge, Safari */
 .lightbox-info-side::-webkit-scrollbar {
   width: 10px;
 }
@@ -833,34 +758,22 @@ button,
     font-size: 20px;
   }
 
-  .fab-stack {
-    bottom: 16px;
-    right: 16px;
-  }
-
-  .fab {
-    width: 46px;
-    height: 46px;
-    font-size: 15px;
-  }
-
   .dpad-nav {
-   border-radius: 40px;
-  padding: 12px 16px;
+    border-radius: 40px;
+    padding: 10px;
   }
 
   .dpad-btn {
-  width: 54px;
-  height: 54px;
-  box-shadow: 0 4px 0 0 var(--shadow-color);
-}
+    width: 46px;
+    height: 46px;
+  }
 
   .dpad-icon {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .dpad-label {
-    font-size: 6px;
+    font-size: 5px;
   }
 
   .dpad-popup {

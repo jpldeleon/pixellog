@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelLog - Retro Tech Feed</title>
+  <a href="/"><title>PixelLog - Retro Tech Feed</title></a>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -97,67 +97,68 @@
         <div class="dpad-popup-title">&gt; PixelLog_</div>
 
         <a class="dpad-popup-item" href="https://github.com/jpldeleon/pixellog" target="_blank" rel="noopener noreferrer">
-          <span class="dpad-popup-icon">⌥</span>
+          <span class="dpad-popup-icon icon-yellow">⌥</span>
           <span>PixelLog Repo</span>
         </a>
 
         <button class="dpad-popup-item" id="emailCopyBtn" type="button" data-mail-b64="anBsZW9uYXJkLmRlbGVvbkBnbWFpbC5jb20=">
-          <span class="dpad-popup-icon">✉</span>
+          <span class="dpad-popup-icon icon-green">✉</span>
           <span>Email Me</span>
         </button>
 
         <a class="dpad-popup-item" href="https://jpldeleon.github.io/" target="_blank" rel="noopener noreferrer">
-          <span class="dpad-popup-icon">▤</span>
+          <span class="dpad-popup-icon icon-blue">▤</span>
           <span>CV</span>
         </a>
 
         <button class="dpad-popup-item" id="projectDirBtn" type="button">
-          <span class="dpad-popup-icon">▦</span>
+          <span class="dpad-popup-icon icon-purple">▦</span>
           <span>Project Directory</span>
           <span class="dpad-popup-arrow">›</span>
         </button>
       </div>
 
+      <!-- Project Directory panel hidden by default -->
       <div class="dpad-popup-panel" id="panelProjects" hidden>
         <button class="dpad-popup-back" id="projectsBackBtn" type="button">‹ BACK</button>
         <div class="dpad-popup-title">&gt; Directory_</div>
 
         <a class="dpad-popup-item" href="https://johnoffthewall.github.io/" target="_blank" rel="noopener noreferrer">
-          <span class="dpad-popup-icon">◆</span>
+          <span class="dpad-popup-icon icon-red">◆</span>
           <span>John Off the Wall</span>
         </a>
 
         <a class="dpad-popup-item" href="https://jamporudex.onrender.com/" target="_blank" rel="noopener noreferrer">
-          <span class="dpad-popup-icon">◆</span>
+          <span class="dpad-popup-icon icon-yellow">◆</span>
           <span>JamporuDEX</span>
         </a>
 
         <a class="dpad-popup-item" href="https://auditkit.onrender.com/" target="_blank" rel="noopener noreferrer">
-          <span class="dpad-popup-icon">◆</span>
+          <span class="dpad-popup-icon icon-blue">◆</span>
           <span>AuditKit</span>
         </a>
 
         <a class="dpad-popup-item" href="https://route196.onrender.com/" target="_blank" rel="noopener noreferrer">
-          <span class="dpad-popup-icon">◆</span>
+          <span class="dpad-popup-icon icon-green">◆</span>
           <span>Route 196</span>
         </a>
       </div>
     </div>
 
-    <!-- Controller buttons -->
-    <button class="dpad-btn" id="navPixelLog" title="PixelLog Menu" aria-haspopup="true" aria-expanded="false">
+    <!-- Controller buttons with retro face button classes -->
+    <button class="dpad-btn ctrl-btn-menu" id="navPixelLog" title="PixelLog Menu" aria-haspopup="true" aria-expanded="false">
       <span class="dpad-icon">☰</span>
       <span class="dpad-label">MENU</span>
     </button>
-    <button class="dpad-btn" id="navNewMemory" title="New Memory">
+    <button class="dpad-btn ctrl-btn-new" id="navNewMemory" title="New Memory">
       <span class="dpad-icon">✚</span>
       <span class="dpad-label">NEW</span>
     </button>
-    <button class="dpad-btn" id="navThemeToggle" title="Toggle light/dark mode">
+    <button class="dpad-btn ctrl-btn-mode" id="navThemeToggle" title="Toggle light/dark mode">
       <span class="dpad-icon">◐</span>
       <span class="dpad-label">MODE</span>
     </button>
-    <button class="dpad-btn" id="navScrollTop" title="Back to top">
+    <button class="dpad-btn ctrl-btn-top" id="navScrollTop" title="Back to top">
       <span class="dpad-icon">▲</span>
       <span class="dpad-label">TOP</span>
     </button>
@@ -189,7 +190,6 @@
   </div>
 
   <script>
-    // -------------------- Theme toggle --------------------
     const themeToggle = document.getElementById('navThemeToggle');
     const savedTheme = localStorage.getItem('pixellog-theme');
     if (savedTheme === 'light') {
@@ -203,12 +203,10 @@
       );
     });
 
-    // -------------------- Scroll to top --------------------
     document.getElementById('navScrollTop').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // -------------------- New Memory: jump to the create-card & focus title --------------------
     document.getElementById('navNewMemory').addEventListener('click', function () {
       closeDpadPopup();
       const createCard = document.querySelector('.create-card');
@@ -223,7 +221,6 @@
       }
     });
 
-    // -------------------- Toast --------------------
     let toastTimer = null;
     function showToast(message) {
       const toast = document.getElementById('toast');
@@ -235,7 +232,6 @@
       }, 2400);
     }
 
-    // -------------------- PixelLog controller menu (D-pad popup) --------------------
     const dpadNav = document.getElementById('dpadNav');
     const dpadPopup = document.getElementById('dpadPopup');
     const navPixelLogBtn = document.getElementById('navPixelLog');
@@ -252,7 +248,6 @@
       dpadPopup.classList.remove('open');
       navPixelLogBtn.classList.remove('active');
       navPixelLogBtn.setAttribute('aria-expanded', 'false');
-      // reset back to the main panel after the close transition
       window.setTimeout(function () {
         panelProjects.hidden = true;
         panelMain.hidden = false;
@@ -268,7 +263,6 @@
       }
     });
 
-    // Project Directory sub-panel
     document.getElementById('projectDirBtn').addEventListener('click', function () {
       panelMain.hidden = true;
       panelProjects.hidden = false;
@@ -278,7 +272,6 @@
       panelMain.hidden = false;
     });
 
-    // Click-away & Escape to close
     document.addEventListener('click', function (e) {
       if (dpadPopup.classList.contains('open') && !dpadNav.contains(e.target)) {
         closeDpadPopup();
@@ -290,7 +283,6 @@
       }
     });
 
-    // -------------------- Email: decode + copy to clipboard + toast --------------------
     document.getElementById('emailCopyBtn').addEventListener('click', function () {
       const encoded = this.dataset.mailB64;
       let email = '';
@@ -311,9 +303,7 @@
         temp.select();
         try {
           document.execCommand('copy');
-        } catch (err) {
-          /* no-op */
-        }
+        } catch (err) {}
         document.body.removeChild(temp);
       };
 
@@ -330,16 +320,13 @@
       }
     });
 
-    // -------------------- Broken image fallback --------------------
     function pixelFallback(category) {
       const wrap = document.createElement('div');
       wrap.className = 'post-card-img-fallback';
-      wrap.innerHTML =
-        '<div>▨▨▨<br/>▨▨▨</div><div>IMAGE NOT FOUND</div>';
+      wrap.innerHTML = '<div>▨▨▨<br/>▨▨▨</div><div>IMAGE NOT FOUND</div>';
       return wrap;
     }
 
-    // -------------------- 8-bit Lightbox --------------------
     const overlay = document.getElementById('lightboxOverlay');
     const lbImg = document.getElementById('lightboxImg');
     const lbBadge = document.getElementById('lightboxBadge');
