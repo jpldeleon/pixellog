@@ -449,24 +449,18 @@ button,
 }
 
 .dpad-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 0 var(--shadow-color);
-  border-color: var(--yellow);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 0 var(--shadow-color);
 }
 
 .dpad-btn:hover .dpad-label {
   color: var(--yellow);
 }
 
-.dpad-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 0 var(--shadow-color);
-}
-
+.dpad-btn:active,
 .dpad-btn.active {
-  background-color: var(--yellow);
-  color: var(--bg-inset);
-  border-color: var(--shadow-color);
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 var(--shadow-color);
 }
 
 .dpad-btn.active .dpad-label {
@@ -802,16 +796,43 @@ button,
   }
 
   .dpad-nav {
-    bottom: 14px;
-    gap: 6px;
-    padding: 8px;
+   border-radius: 40px;
+  padding: 12px 16px;
   }
 
   .dpad-btn {
-    width: 48px;
-    height: 48px;
-    gap: 2px;
-  }
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  border: 3px solid var(--shadow-color);
+  box-shadow: 0 4px 0 0 var(--shadow-color);
+  position: relative;
+}
+
+.ctrl-btn-menu {
+  background-color: var(--red);
+  color: var(--bg-inset);
+}
+
+.ctrl-btn-new {
+  background-color: var(--yellow);
+  color: var(--bg-inset);
+}
+
+.ctrl-btn-mode {
+  background-color: var(--blue);
+  color: var(--bg-inset);
+}
+
+.ctrl-btn-top {
+  background-color: var(--green);
+  color: var(--bg-inset);
+}
+
+.dpad-btn .dpad-label {
+  font-size: 6px;
+  font-weight: bold;
+}
 
   .dpad-icon {
     font-size: 16px;
