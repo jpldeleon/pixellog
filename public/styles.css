@@ -404,6 +404,201 @@ button,
 }
 
 /* ==========================================================================
+   RETRO CONTROLLER NAV PILL
+   ========================================================================== */
+.dpad-nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  background-color: var(--bg-card);
+  padding: 10px;
+}
+
+.dpad-btn {
+  width: 58px;
+  height: 58px;
+  border: 3px solid var(--shadow-color);
+  background-color: var(--bg-inset);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 0 var(--shadow-color);
+  transition: transform 0.08s ease, box-shadow 0.08s ease,
+    background-color 0.15s ease, color 0.15s ease;
+}
+
+.dpad-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.dpad-label {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+}
+
+.dpad-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 0 var(--shadow-color);
+  border-color: var(--yellow);
+}
+
+.dpad-btn:hover .dpad-label {
+  color: var(--yellow);
+}
+
+.dpad-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--shadow-color);
+}
+
+.dpad-btn.active {
+  background-color: var(--yellow);
+  color: var(--bg-inset);
+  border-color: var(--shadow-color);
+}
+
+.dpad-btn.active .dpad-label {
+  color: var(--bg-inset);
+}
+
+/* -------------------- popup menu (opens above the pill) -------------------- */
+.dpad-popup {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  width: 250px;
+  max-width: calc(100vw - 32px);
+  background-color: var(--bg-card);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(10px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.dpad-popup.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dpad-popup-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.dpad-popup-title {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--shadow-color);
+  margin: 0 0 6px;
+}
+
+.dpad-popup-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text);
+  background-color: var(--bg-inset);
+  border: 2px solid var(--border);
+  padding: 10px 12px;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.1s ease, color 0.1s ease, transform 0.08s ease;
+}
+
+.dpad-popup-item:hover,
+.dpad-popup-item:focus-visible {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  transform: translate(-1px, -1px);
+  outline: none;
+}
+
+.dpad-popup-icon {
+  font-size: 16px;
+  width: 18px;
+  text-align: center;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.dpad-popup-item:hover .dpad-popup-icon {
+  color: var(--yellow);
+}
+
+.dpad-popup-arrow {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-family: var(--font-pixel);
+  font-size: 12px;
+}
+
+.dpad-popup-back {
+  align-self: flex-start;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--blue);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 6px;
+}
+
+.dpad-popup-back:hover {
+  color: var(--yellow);
+}
+
+/* ==========================================================================
+   TOAST
+   ========================================================================== */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: var(--bg-card);
+  color: var(--text);
+  border-color: var(--green) !important;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 200;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
    8-BIT LIGHTBOX MODAL
    ========================================================================== */
 .lightbox-overlay {
@@ -604,5 +799,38 @@ button,
     width: 46px;
     height: 46px;
     font-size: 15px;
+  }
+
+  .dpad-nav {
+    bottom: 14px;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .dpad-btn {
+    width: 48px;
+    height: 48px;
+    gap: 2px;
+  }
+
+  .dpad-icon {
+    font-size: 16px;
+  }
+
+  .dpad-label {
+    font-size: 6px;
+  }
+
+  .dpad-popup {
+    width: 220px;
+  }
+
+  .toast {
+    bottom: 84px;
+    font-size: 9px;
+    padding: 10px 14px;
+    white-space: normal;
+    max-width: calc(100vw - 32px);
+    text-align: center;
   }
 }
