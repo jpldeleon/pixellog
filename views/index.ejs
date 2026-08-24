@@ -170,9 +170,12 @@
   <!-- ===================== 8-BIT LIGHTBOX MODAL ===================== -->
   <div class="lightbox-overlay" id="lightboxOverlay">
     <div class="lightbox pixel-border" id="lightboxBox">
-      <div class="lightbox-img-side">
-        <img id="lightboxImg" src="" alt="" onerror="this.onerror=null; this.replaceWith(pixelFallback(currentCategory));" />
-      </div>
+      <div class="lightbox-img-side" id="lightboxImgSide">
+  <img id="lightboxImg" src="" alt="" />
+  <div class="post-card-img-fallback" id="lightboxFallback" style="display:none;">
+    <div>▨▨▨<br/>▨▨▨</div><div>IMAGE NOT FOUND</div>
+  </div>
+</div>
       <div class="lightbox-info-side">
         <button class="lightbox-close" id="lightboxClose">✕ CLOSE</button>
         <span class="badge" id="lightboxBadge"></span>
@@ -328,7 +331,8 @@
     }
 
     const overlay = document.getElementById('lightboxOverlay');
-    const lbImg = document.getElementById('lightboxImg');
+const lbImg = document.getElementById('lightboxImg');
+const lbFallback = document.getElementById('lightboxFallback');
     const lbBadge = document.getElementById('lightboxBadge');
     const lbTitle = document.getElementById('lightboxTitle');
     const lbTimestamp = document.getElementById('lightboxTimestamp');
@@ -347,8 +351,15 @@
         const created = card.dataset.created;
 
         currentCategory = category;
-        lbImg.src = image;
-        lbImg.alt = title;
+lbImg.style.display = '';
+lbFallback.style.display = 'none';
+lbImg.onerror = function () {
+  lbImg.style.display = 'none';
+  lbFallback.style.display = '';
+};
+lbImg.src = image || '';
+if (!image) lbImg.onerror();
+lbImg.alt = title;
         lbBadge.textContent = category;
         lbBadge.className = 'badge cat-' + category;
         lbTitle.textContent = title;
