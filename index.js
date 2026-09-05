@@ -15,22 +15,22 @@ app.use(express.static(path.join(__dirname, "public")));
 let posts = [
   {
     id: 1,
-    title: "A Childhood Summer & Rediscovering Spirited Away",
-    category: "Anime",
+    title: "Nintendo Family Computer",
+    category: "Gaming",
     imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSINJHZKscWPPgIL0sTcPF6pnqcLODb2g1jLHgS_qmfOw&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbRUSAMQ2z4EnSKUYr9rCOFprcdhgWfC1RVw2g4z_qj7UjzHUL5WSE4r9j&s=10",
     content:
-      "Spirited Away was the very first anime film I ever remember watching. Every summer break, my siblings and I would head off to the province, and during one of those quiet afternoons, this magical movie played on screen. Back then as a kid, I didn't truly grasp the deeper themes or what Chihiro's journey meant—it was just an enchanting, strange world. Years later as an adult, I came back to rewatch it, and everything finally clicked. It is such an incredible masterpiece: adventurous, wonderfully chill, and completely free of artificial stress. That comforting, feel-good atmosphere is exactly what makes Studio Ghibli films so special, and it inspired my current goal to rewatch and complete their entire filmography.",
+      "Man, looking back, the Famicom era was just peak childhood with that distinct dark-red and white plastic box plugged into the TV as the center of the universe. Long afternoons after school were spent huddled in front of the screen with friends taking turns, passing the controller when someone finally died on Contra while praying someone remembered the Konami code (Up, Up, Down, Down, Left, Right, Left, Right, B, A, Start for those thirty lives), or trying not to fight over who got to play Mario (and hunting down every hidden 1-up mushroom to stack extra lives). The controls were hardwired right into the console, the cartridges were chunky, and half the time you would be blowing into the bottom of a game just to get it to boot up. Games like Super Mario, Contra, Pac-Man, and Bomberman were simple, but they caused absolute chaos in the room with zero patches or internet, just pure couch co-op and endless replay value.",
     createdAt: new Date("2024-01-15T10:30:00").toISOString(),
   },
   {
     id: 2,
-    title: "YuYu Hakusho / Ghost Fighter",
-    category: "Anime",
+    title: "Brick Game",
+    category: "Gaming",
     imageUrl:
-      "https://static0.cbrimages.com/wordpress/wp-content/uploads/sharedimages/2024/10/yu-yu-hakusho-poster.jpg?q=49&fit=contain&w=480&dpr=2",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwrroaaHezb0FkIeuNqCRZZ7tSEynGz-OXDOydTDLKiQ&s=10",
     content:
-      "Running back home straight after the final school bell was an absolute ritual, and the reason was non-negotiable: Yu Yu Hakusho on IBC 13. Missing even a single minute meant missing out on the absolute coolest demon on TV, Hiei (or Vincent in the iconic Tagalog dub). His Jaganshi Dragon of the Darkness Flame instantly made him my favorite character, and watching him slice through enemies made every afternoon rush worth it. That era of Philippine television possessed a special kind of magic that no retro video game could ever match, permanently cementing my love for classic anime.",
+      "That Brick Game was my very first handheld console, and firing it up for the first time to play classics like Tetris or that insanely addictive racing game where you had to dodge oncoming cars made me feel like I had the future right in my hands.",
     createdAt: new Date("2024-02-02T14:00:00").toISOString(),
   },
   {
@@ -52,7 +52,7 @@ function findPost(id) {
   return posts.find((p) => p.id === Number(id));
 }
 
-const CATEGORIES = ["Hardware", "Gaming", "Nostalgia", "Anime"];
+const CATEGORIES = ["Hardware", "Gaming", "Nostalgia"];
 
 // ---------- Routes ----------
 
