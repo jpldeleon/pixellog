@@ -55,7 +55,7 @@ let posts = [
   },
   {
     id: 5,
-    title: "Teks",
+    title: "Spider Fighting",
     category: "Nostalgia",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/9/9c/Spider_fight_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
