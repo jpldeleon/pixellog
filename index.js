@@ -43,6 +43,26 @@ let posts = [
       "In the mid-90s, my Atari 2600 and its lineup of classics like Pac-Man, Ms. Pac-Man, Donkey Kong, Mario Bros., and Pole Position provided a bit of after-school fun, but those blocky graphics and repetitive synth beeps made me get bored real fast. The fate of my Atari was sealed the moment Yu Yu Hakusho aired on IBC 13; Yusuke Urameshi and the Spirit Gun completely stole the show, prompting me to dump the stiff joystick for good and lock the TV channel on pure anime hype every single afternoon.",
     createdAt: new Date("2024-02-20T09:15:00").toISOString(),
   },
+  {
+    id: 4,
+    title: "Teks",
+    category: "Nostalgia",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTByUEzffZcuPPnpuRyzi38tFbswHKwhOM1pLH3UzE89w&s=10",
+    content:
+      "Roaming around different streets with my best friend to challenge random kids and hustle for their teks cards was peak childhood gambling, especially when we were armed with our favorite movie cards bought straight from the local sari-sari store.",
+    createdAt: new Date("2024-02-20T09:15:00").toISOString(),
+  },
+  {
+    id: 5,
+    title: "Teks",
+    category: "Nostalgia",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/9/9c/Spider_fight_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+    content:
+      "Hunting for fighting spiders deep in the woods with my friends was an absolute mission, and keeping them safe in matchboxes lined with damp leaves made us feel like fierce little trainers. We used to feed them just enough and keep them hungry right before fight day to make sure they were aggressive and ready to dominate the arena. Looking back, carrying around a tiny matchbox arsenal of spiders and walking up to other kids to challenge them on the streets was pure, unadulterated childhood adrenaline.",
+    createdAt: new Date("2024-02-20T09:15:00").toISOString(),
+  },
 ];
 
 let nextId = 4;
