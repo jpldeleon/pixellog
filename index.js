@@ -65,7 +65,7 @@ let posts = [
   },
 ];
 
-let nextId = 4;
+let nextId = Math.max(...posts.map((p) => p.id), 0) + 1;
 
 // ---------- Helpers ----------
 function findPost(id) {
