@@ -1,6 +1,6 @@
 # PixelLog 🎮📼
 
-> a retro feed for gadgets, anime, games & tech stories worth remembering
+> a retro feed for gadgets, games & tech stories worth remembering
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#-license) [![Node.js](https://img.shields.io/badge/node.js-v18%2B-green.svg)](#-tech-stack) [![Deployment](https://img.shields.io/badge/deployed%20on-Render-informational)](#-live-demo)
 
