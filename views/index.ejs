@@ -50,6 +50,28 @@
       </form>
     </section>
 
+    <!-- ===================== FILTER & SORT TOOLBAR ===================== -->
+    <% if (posts.length > 0) { %>
+      <section class="toolbar pixel-border-sm" id="feedToolbar">
+        <div class="toolbar-group toolbar-filters" id="filterPills">
+          <button type="button" class="filter-pill active" data-filter="All">All</button>
+          <% categories.forEach(function(cat) { %>
+            <button type="button" class="filter-pill" data-filter="<%= cat %>"><%= cat %></button>
+          <% }); %>
+        </div>
+        <div class="toolbar-group toolbar-sort">
+          <label for="sortSelect" class="toolbar-sort-label">Sort</label>
+          <select id="sortSelect">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="title-asc">Title A-Z</option>
+            <option value="title-desc">Title Z-A</option>
+            <option value="category">Category</option>
+          </select>
+        </div>
+      </section>
+    <% } %>
+
     <!-- ===================== FEED ===================== -->
     <% if (posts.length === 0) { %>
       <div class="empty-state">
@@ -57,34 +79,40 @@
         BE THE FIRST TO SHARE A MEMORY
       </div>
     <% } else { %>
-      <% posts.forEach(function(post) { %>
-        <article
-          class="post-card pixel-border-sm"
-          data-id="<%= post.id %>"
-          data-title="<%= post.title %>"
-          data-category="<%= post.category %>"
-          data-image="<%= post.imageUrl %>"
-          data-content="<%= post.content %>"
-          data-created="<%= post.createdAt %>"
-        >
-          <div class="post-card-img-wrap">
-            <img
-              src="<%= post.imageUrl %>"
-              alt="<%= post.title %>"
-              loading="lazy"
-              onerror="this.onerror=null; this.replaceWith(pixelFallback('<%= post.category %>'));"
-            />
-          </div>
-          <div class="post-card-body">
-            <div class="post-card-top">
-              <span class="badge cat-<%= post.category %>"><%= post.category %></span>
-              <span class="post-card-date"><%= new Date(post.createdAt).toLocaleDateString() %></span>
+      <div id="postsFeed">
+        <% posts.forEach(function(post) { %>
+          <article
+            class="post-card pixel-border-sm"
+            data-id="<%= post.id %>"
+            data-title="<%= post.title %>"
+            data-category="<%= post.category %>"
+            data-image="<%= post.imageUrl %>"
+            data-content="<%= post.content %>"
+            data-created="<%= post.createdAt %>"
+          >
+            <div class="post-card-img-wrap">
+              <img
+                src="<%= post.imageUrl %>"
+                alt="<%= post.title %>"
+                loading="lazy"
+                onerror="this.onerror=null; this.replaceWith(pixelFallback('<%= post.category %>'));"
+              />
             </div>
-            <h3 class="post-card-title"><%= post.title %></h3>
-            <p class="post-card-excerpt"><%= post.content %></p>
-          </div>
-        </article>
-      <% }); %>
+            <div class="post-card-body">
+              <div class="post-card-top">
+                <span class="badge cat-<%= post.category %>"><%= post.category %></span>
+                <span class="post-card-date"><%= new Date(post.createdAt).toLocaleDateString() %></span>
+              </div>
+              <h3 class="post-card-title"><%= post.title %></h3>
+              <p class="post-card-excerpt"><%= post.content %></p>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+      <div class="empty-state" id="noResultsState" hidden>
+        NO MEMORIES MATCH THIS FILTER<br />
+        TRY A DIFFERENT CATEGORY
+      </div>
     <% } %>
 
   </main>
@@ -210,6 +238,77 @@
     document.getElementById('navScrollTop').addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // ---------------- FILTER & SORT ----------------
+    const postsFeed = document.getElementById('postsFeed');
+    const noResultsState = document.getElementById('noResultsState');
+    const filterPills = document.getElementById('filterPills');
+    const sortSelect = document.getElementById('sortSelect');
+
+    let activeFilter = 'All';
+    let activeSort = 'newest';
+
+    function applyFilterAndSort() {
+      if (!postsFeed) return;
+      const cards = Array.from(postsFeed.querySelectorAll('.post-card'));
+
+      // Sort in place (comparator uses each card's data attributes)
+      cards.sort(function (a, b) {
+        switch (activeSort) {
+          case 'oldest':
+            return new Date(a.dataset.created) - new Date(b.dataset.created);
+          case 'title-asc':
+            return a.dataset.title.localeCompare(b.dataset.title);
+          case 'title-desc':
+            return b.dataset.title.localeCompare(a.dataset.title);
+          case 'category':
+            return a.dataset.category.localeCompare(b.dataset.category) ||
+              (new Date(b.dataset.created) - new Date(a.dataset.created));
+          case 'newest':
+          default:
+            return new Date(b.dataset.created) - new Date(a.dataset.created);
+        }
+      });
+
+      // Re-append in sorted order
+      cards.forEach(function (card) {
+        postsFeed.appendChild(card);
+      });
+
+      // Filter visibility
+      let visibleCount = 0;
+      cards.forEach(function (card) {
+        const matches = activeFilter === 'All' || card.dataset.category === activeFilter;
+        card.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+      });
+
+      if (noResultsState) {
+        noResultsState.hidden = visibleCount !== 0;
+      }
+    }
+
+    if (filterPills) {
+      filterPills.addEventListener('click', function (e) {
+        const pill = e.target.closest('.filter-pill');
+        if (!pill) return;
+        filterPills.querySelectorAll('.filter-pill').forEach(function (p) {
+          p.classList.remove('active');
+        });
+        pill.classList.add('active');
+        activeFilter = pill.dataset.filter;
+        applyFilterAndSort();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function () {
+        activeSort = sortSelect.value;
+        applyFilterAndSort();
+      });
+    }
+
+    applyFilterAndSort();
 
     document.getElementById('navNewMemory').addEventListener('click', function () {
       closeDpadPopup();
