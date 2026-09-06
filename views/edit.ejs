@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit — <%= post.title %> — PixelLog</title>
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
+
 <body>
 
   <div class="edit-page">
@@ -25,8 +27,9 @@
             <label for="category">Category</label>
             <select id="category" name="category">
               <% categories.forEach(function(cat) { %>
-                <option value="<%= cat %>" <%= post.category === cat ? 'selected' : '' %>><%= cat %></option>
-              <% }); %>
+                <option value="<%= cat %>" <%=post.category===cat ? 'selected' : '' %>><%= cat %>
+                </option>
+                <% }); %>
             </select>
           </div>
 
@@ -58,6 +61,12 @@
       </form>
     </section>
   </div>
-
+  <script>
+    const savedTheme = localStorage.getItem('pixellog-theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-theme');
+    }
+  </script>
 </body>
+
 </html>
